@@ -1,13 +1,13 @@
-package com.anthony.springboot_mall;
+package com.anthony.springboot_music;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootMallApplication {
+public class SpringbootMusicApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootMallApplication.class, args);
+		SpringApplication.run(SpringbootMusicApplication.class, args);
 	}
 
 }
