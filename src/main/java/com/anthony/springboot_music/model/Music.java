@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Music {
 
-    private Integer musicId;
-    private String musicName;
+    private Integer music_id;
+    private String music_name;
     private String singer;
     private String youtube_url;
     private Integer views;
@@ -15,19 +15,19 @@ public class Music {
     private Date last_modified_date;
 
     public Integer getMusicId() {
-        return musicId;
+        return music_id;
     }
 
     public void setMusicId(Integer musicId) {
-        this.musicId = musicId;
+        this.music_id = musicId;
     }
 
     public String getMusicName() {
-        return musicName;
+        return music_name;
     }
 
     public void setMusicName(String musicName) {
-        this.musicName = musicName;
+        this.music_name = musicName;
     }
 
     public String getSinger() {
