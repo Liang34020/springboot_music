@@ -1,12 +1,14 @@
 package com.anthony.springboot_music.model;
 
+import com.anthony.springboot_music.constant.MusicSinger;
+
 import java.util.Date;
 
 public class Music {
 
     private Integer music_id;
     private String music_name;
-    private String singer;
+    private MusicSinger singer;
     private String youtube_url;
     private Integer views;
     private String description;
@@ -30,11 +32,11 @@ public class Music {
         this.music_name = musicName;
     }
 
-    public String getSinger() {
+    public MusicSinger getSinger() {
         return singer;
     }
 
-    public void setSinger(String singer) {
+    public void setSinger(MusicSinger singer) {
         this.singer = singer;
     }
 
