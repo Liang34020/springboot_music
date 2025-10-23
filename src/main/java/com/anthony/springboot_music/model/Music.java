@@ -2,6 +2,7 @@ package com.anthony.springboot_music.model;
 
 import com.anthony.springboot_music.constant.MusicSinger;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Music {
@@ -14,7 +15,7 @@ public class Music {
     private String description;
     private String duration;
     private Date created_date;
-    private Date last_modified_date;
+    private Timestamp last_modified_date;
 
     public Integer getMusicId() {
         return music_id;
@@ -84,7 +85,7 @@ public class Music {
         return last_modified_date;
     }
 
-    public void setLast_modified_date(Date last_modified_date) {
+    public void setLast_modified_date(Timestamp last_modified_date) {
         this.last_modified_date = last_modified_date;
     }
 }

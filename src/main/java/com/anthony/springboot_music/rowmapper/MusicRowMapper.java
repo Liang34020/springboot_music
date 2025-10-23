@@ -27,7 +27,7 @@ public class MusicRowMapper implements RowMapper<Music> {
         music.setDescription(resultSet.getString("description"));
         music.setDuration(resultSet.getString("duration"));
         music.setCreated_date(resultSet.getDate("created_date"));
-        music.setLast_modified_date(resultSet.getDate("last_modified_date"));
+        music.setLast_modified_date(resultSet.getTimestamp("last_modified_date"));
 
         return music;
 
