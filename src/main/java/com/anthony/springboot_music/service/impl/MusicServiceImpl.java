@@ -1,6 +1,7 @@
 package com.anthony.springboot_music.service.impl;
 
 import com.anthony.springboot_music.dao.MusicDao;
+import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,10 @@ public class MusicServiceImpl implements MusicService {
     @Override
     public Music getMusicById(Integer musicId) {
         return musicDao.getMusicById(musicId);
+    }
+
+    @Override
+    public Integer createMusic(MusicRequest musicRequest) {
+        return musicDao.createMusic(musicRequest);
     }
 }

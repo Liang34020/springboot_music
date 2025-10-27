@@ -1,5 +1,5 @@
 package com.anthony.springboot_music.constant;
 
-public enum MusicSinger {
-    YUTORI
+public enum MusicCategory {
+    POP
 }
