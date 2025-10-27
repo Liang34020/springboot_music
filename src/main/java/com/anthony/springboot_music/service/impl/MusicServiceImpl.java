@@ -22,4 +22,9 @@ public class MusicServiceImpl implements MusicService {
     public Integer createMusic(MusicRequest musicRequest) {
         return musicDao.createMusic(musicRequest);
     }
+
+    @Override
+    public void updateMusic(MusicRequest musicRequest) {
+        musicDao.updateMusic(musicRequest);
+    }
 }

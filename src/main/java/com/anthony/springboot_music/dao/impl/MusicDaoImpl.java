@@ -69,4 +69,40 @@ public class MusicDaoImpl implements MusicDao {
 
         return musicId;
     }
+
+    @Override
+    public void updateMusic(MusicRequest musicRequest){
+
+        String sql = "UPDATE music SET music_name = :music_name, singer = :singer, category = :category, youtube_url = :youtube_url, views = :views, description = :description, duration = :duration, created_date = :created_date, last_modified_date = :last_modified_date WHERE music_id = :music_id";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("music_id", musicRequest.getMusic_id());
+        map.put("music_name", musicRequest.getMusic_name());
+        map.put("singer", musicRequest.getSinger());
+        map.put("category", musicRequest.getCategory());
+        map.put("youtube_url", musicRequest.getYoutube_url());
+        map.put("views", musicRequest.getViews());
+        map.put("description", musicRequest.getDescription());
+        map.put("duration", musicRequest.getDuration());
+        map.put("created_date", musicRequest.getCreated_date());
+        map.put("last_modified_date", new Date());
+
+        int rowsAffected = namedParameterJdbcTemplate.update(sql, map);
+
+        // 如果想知道有沒有更新成功：(可省略
+        if (rowsAffected > 0) {
+            System.out.println("✅ 更新成功：" + rowsAffected + " 筆資料");
+        } else {
+            System.out.println("⚠️ 沒有找到符合條件的 music_id：" + musicRequest.getMusic_id());
+        }
+
+//        return rowsAffected;
+//
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//
+//        namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map), keyHolder);
+////        int musicId = keyHolder.getKey().intValue();
+//
+//        return musicRequest.getMusic_id();
+    }
 }

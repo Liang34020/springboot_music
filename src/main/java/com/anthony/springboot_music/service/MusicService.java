@@ -8,5 +8,6 @@ public interface MusicService {
 
     Integer createMusic(MusicRequest musicRequest);
 
+    void updateMusic(MusicRequest musicRequest);
 }
 

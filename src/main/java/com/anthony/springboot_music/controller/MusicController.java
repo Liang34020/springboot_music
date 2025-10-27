@@ -39,7 +39,25 @@ public class MusicController {
         Music music = musicService.getMusicById(musicId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(music);
-
     }
 
+//  修改 (Put
+    @PutMapping("music/{musicId}")
+    public ResponseEntity<Music> updateMusic(@PathVariable Integer musicId,
+                                             @RequestBody MusicRequest musicRequest) {
+
+        Music music = musicService.getMusicById(musicId);
+
+        if (music != null) {
+            // 把路徑的 id 設進物件裡
+            musicRequest.setMusic_id(musicId);
+            // 呼叫 Service 層
+            musicService.updateMusic(musicRequest);
+            Music updateMusic = musicService.getMusicById(musicId);
+            return ResponseEntity.status(HttpStatus.OK).body(updateMusic);
+
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

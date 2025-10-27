@@ -10,6 +10,9 @@ import java.util.Date;
 public class MusicRequest {
 
     @NonNull
+    private Integer music_id;
+
+    @NonNull
     private String music_name;
 
     @NonNull
@@ -33,6 +36,13 @@ public class MusicRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
     @NonNull
     private Date created_date;
+
+    public Integer getMusic_id(){
+        return music_id;
+    }
+    public void setMusic_id(Integer music_id){
+        this.music_id = music_id;
+    }
 
     public String getMusic_name() {
         return music_name;
