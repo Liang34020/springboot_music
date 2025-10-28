@@ -21,6 +21,15 @@ public class MusicDaoImpl implements MusicDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
+    public List<Music> getMusicList() {
+
+        String sql = "SELECT * FROM music";
+        Map<String, Object> map = new HashMap<>();
+        List<Music> musicList = namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
+        return musicList;
+    }
+
+    @Override
     public Music getMusicById(Integer musicId) {
         String sql = "SELECT music_id,music_name, singer, category, youtube_url, views, description, duration, created_date, last_modified_date FROM music WHERE music_id = :musicId";
 //
@@ -33,7 +42,6 @@ public class MusicDaoImpl implements MusicDao {
 //        } else {
 //            return null;
 //        }
-
         Map<String, Object> map = Collections.singletonMap("musicId", musicId);
 
         try {
@@ -115,4 +123,6 @@ public class MusicDaoImpl implements MusicDao {
             System.out.println("⚠️ 沒有找到符合條件的 music_id：" + musicId);
         }
     }
+
+
 }

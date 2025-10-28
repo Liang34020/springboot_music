@@ -7,11 +7,18 @@ import com.anthony.springboot_music.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MusicServiceImpl implements MusicService {
 
     @Autowired
     private MusicDao musicDao;
+
+    @Override
+    public List<Music> getMusicList() {
+        return musicDao.getMusicList();
+    }
 
     @Override
     public Music getMusicById(Integer musicId) {

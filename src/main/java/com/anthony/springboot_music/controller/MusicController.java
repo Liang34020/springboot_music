@@ -10,11 +10,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class MusicController {
 
     @Autowired
     MusicService musicService;
+
+    @GetMapping("music")
+    public ResponseEntity<List<Music>> getMusicList(){
+
+        List<Music> musicList = musicService.getMusicList();
+
+        return  ResponseEntity.status(HttpStatus.OK).body(musicList);
+    }
 
 //  搜尋
     @GetMapping("music/{musicId}")
