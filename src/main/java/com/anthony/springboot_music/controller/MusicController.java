@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class MusicController {
 
@@ -58,6 +56,17 @@ public class MusicController {
 
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @DeleteMapping("music/{musicId}")
+    public ResponseEntity<Music> deleteMusicById(@PathVariable Integer musicId) {
+        Music music = musicService.getMusicById(musicId);
+        if (music != null) {
+            musicService.deleteMusicById(musicId);
+            return ResponseEntity.status(HttpStatus.OK).body(music);
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
     }
 }

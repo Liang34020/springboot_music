@@ -27,4 +27,9 @@ public class MusicServiceImpl implements MusicService {
     public void updateMusic(MusicRequest musicRequest) {
         musicDao.updateMusic(musicRequest);
     }
+
+    @Override
+    public void deleteMusicById(Integer musicId) {
+        musicDao.deleteMusicById(musicId);
+    }
 }

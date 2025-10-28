@@ -28,6 +28,12 @@ public class MusicDaoImpl implements MusicDao {
 //        map.put("musicId", musicId);
 //        List<Music> musicList = namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
 //
+//        if (!musicList.isEmpty()) {
+//            return musicList.get(0);
+//        } else {
+//            return null;
+//        }
+
         Map<String, Object> map = Collections.singletonMap("musicId", musicId);
 
         try {
@@ -35,11 +41,6 @@ public class MusicDaoImpl implements MusicDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-//        if (!musicList.isEmpty()) {
-//            return musicList.get(0);
-//        } else {
-//            return null;
-//        }
     }
 
     @Override
@@ -95,14 +96,23 @@ public class MusicDaoImpl implements MusicDao {
         } else {
             System.out.println("⚠️ 沒有找到符合條件的 music_id：" + musicRequest.getMusic_id());
         }
+    }
 
-//        return rowsAffected;
-//
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//
-//        namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map), keyHolder);
-////        int musicId = keyHolder.getKey().intValue();
-//
-//        return musicRequest.getMusic_id();
+    @Override
+    public void deleteMusicById(Integer musicId) {
+
+        String sql = "DELETE FROM music WHERE music_id = :music_id";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("music_id", musicId);
+
+        int rowsAffected = namedParameterJdbcTemplate.update(sql, map);
+
+        // 如果想知道有沒有更新成功：(可省略
+        if (rowsAffected > 0) {
+            System.out.println("✅ 刪除成功：" + rowsAffected + " 筆資料");
+        } else {
+            System.out.println("⚠️ 沒有找到符合條件的 music_id：" + musicId);
+        }
     }
 }
