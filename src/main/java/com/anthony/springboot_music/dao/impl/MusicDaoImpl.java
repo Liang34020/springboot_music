@@ -41,6 +41,8 @@ public class MusicDaoImpl implements MusicDao {
             map .put("search", "%" + search + "%");
         }
 
+        sql += " ORDER BY "+ musicQueryParams.getOrderBy() + " " + musicQueryParams.getSort();
+
         List<Music> musicList = namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
         return musicList;
     }

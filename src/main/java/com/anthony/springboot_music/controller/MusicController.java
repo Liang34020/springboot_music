@@ -22,13 +22,20 @@ public class MusicController {
 
     @GetMapping("music")
     public ResponseEntity<List<Music>> getMusicList(
+//          查詢條件 Filtering
             @RequestParam(required = false) MusicCategory category,
-            @RequestParam(required = false) String search
+            @RequestParam(required = false) String search,
+
+//          排序 sorting
+            @RequestParam(defaultValue = "views") String orderBy,
+            @RequestParam(defaultValue = "desc") String sort
     ) {
 
         MusicQueryParams musicQueryParams = new MusicQueryParams();
         musicQueryParams.setCategory(category);
         musicQueryParams.setSearch(search);
+        musicQueryParams.setOrderBy(orderBy);
+        musicQueryParams.setSort(sort);
 
         List<Music> musicList = musicService.getMusicList(musicQueryParams);
 
