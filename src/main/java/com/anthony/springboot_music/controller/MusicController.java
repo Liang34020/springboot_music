@@ -2,6 +2,7 @@ package com.anthony.springboot_music.controller;
 
 
 import com.anthony.springboot_music.constant.MusicCategory;
+import com.anthony.springboot_music.dto.MusicQueryParams;
 import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.service.MusicService;
@@ -25,7 +26,11 @@ public class MusicController {
             @RequestParam(required = false) String search
     ) {
 
-        List<Music> musicList = musicService.getMusicList(category,search);
+        MusicQueryParams musicQueryParams = new MusicQueryParams();
+        musicQueryParams.setCategory(category);
+        musicQueryParams.setSearch(search);
+
+        List<Music> musicList = musicService.getMusicList(musicQueryParams);
 
         return  ResponseEntity.status(HttpStatus.OK).body(musicList);
     }

@@ -2,6 +2,7 @@ package com.anthony.springboot_music.service.impl;
 
 import com.anthony.springboot_music.constant.MusicCategory;
 import com.anthony.springboot_music.dao.MusicDao;
+import com.anthony.springboot_music.dto.MusicQueryParams;
 import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.service.MusicService;
@@ -17,8 +18,8 @@ public class MusicServiceImpl implements MusicService {
     private MusicDao musicDao;
 
     @Override
-    public List<Music> getMusicList(MusicCategory category, String search) {
-        return musicDao.getMusicList(category, search);
+    public List<Music> getMusicList(MusicQueryParams musicQueryParams) {
+        return musicDao.getMusicList(musicQueryParams);
     }
 
     @Override
