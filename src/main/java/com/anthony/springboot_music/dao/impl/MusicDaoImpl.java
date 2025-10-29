@@ -1,5 +1,6 @@
 package com.anthony.springboot_music.dao.impl;
 
+import com.anthony.springboot_music.constant.MusicCategory;
 import com.anthony.springboot_music.dao.MusicDao;
 import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
@@ -21,10 +22,22 @@ public class MusicDaoImpl implements MusicDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public List<Music> getMusicList() {
+    public List<Music> getMusicList(MusicCategory category,String search) {
 
-        String sql = "SELECT * FROM music";
+        String sql = "SELECT * FROM music WHERE 1=1";
+
         Map<String, Object> map = new HashMap<>();
+
+        if (category != null) {
+            sql += " AND category = :category";
+            map.put("category", category.name());
+        }
+
+        if (search != null) {
+            sql += " AND music_name LIKE :search";
+            map .put("search", "%" + search + "%");
+        }
+
         List<Music> musicList = namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
         return musicList;
     }

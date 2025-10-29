@@ -1,6 +1,7 @@
 package com.anthony.springboot_music.controller;
 
 
+import com.anthony.springboot_music.constant.MusicCategory;
 import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.service.MusicService;
@@ -19,9 +20,12 @@ public class MusicController {
     MusicService musicService;
 
     @GetMapping("music")
-    public ResponseEntity<List<Music>> getMusicList(){
+    public ResponseEntity<List<Music>> getMusicList(
+            @RequestParam(required = false) MusicCategory category,
+            @RequestParam(required = false) String search
+    ) {
 
-        List<Music> musicList = musicService.getMusicList();
+        List<Music> musicList = musicService.getMusicList(category,search);
 
         return  ResponseEntity.status(HttpStatus.OK).body(musicList);
     }
