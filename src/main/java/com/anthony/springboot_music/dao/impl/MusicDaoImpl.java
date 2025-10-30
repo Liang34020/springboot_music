@@ -31,6 +31,7 @@ public class MusicDaoImpl implements MusicDao {
         MusicCategory category = musicQueryParams.getCategory();
         String search = musicQueryParams.getSearch();
 
+//      查詢條件
         if (musicQueryParams.getCategory() != null) {
             sql += " AND category = :category";
             map.put("category", category.name());
@@ -41,7 +42,13 @@ public class MusicDaoImpl implements MusicDao {
             map .put("search", "%" + search + "%");
         }
 
+//      排序
         sql += " ORDER BY "+ musicQueryParams.getOrderBy() + " " + musicQueryParams.getSort();
+
+//      分頁
+        sql += " LIMIT :limit OFFSET :offset";
+        map.put("limit", musicQueryParams.getLimit());
+        map.put("offset", musicQueryParams.getOffset());
 
         List<Music> musicList = namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
         return musicList;

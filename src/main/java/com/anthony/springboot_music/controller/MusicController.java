@@ -7,13 +7,17 @@ import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.service.MusicService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 public class MusicController {
 
@@ -28,14 +32,21 @@ public class MusicController {
 
 //          排序 sorting
             @RequestParam(defaultValue = "views") String orderBy,
-            @RequestParam(defaultValue = "desc") String sort
-    ) {
+            @RequestParam(defaultValue = "desc") String sort,
 
+//          分頁 Pagination
+            @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset
+    ) {
         MusicQueryParams musicQueryParams = new MusicQueryParams();
         musicQueryParams.setCategory(category);
         musicQueryParams.setSearch(search);
         musicQueryParams.setOrderBy(orderBy);
         musicQueryParams.setSort(sort);
+        musicQueryParams.setLimit(limit);
+        musicQueryParams.setOffset(offset);
+
+
 
         List<Music> musicList = musicService.getMusicList(musicQueryParams);
 
