@@ -6,6 +6,7 @@ import com.anthony.springboot_music.dto.MusicQueryParams;
 import com.anthony.springboot_music.dto.MusicRequest;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.service.MusicService;
+import com.anthony.springboot_music.util.Page;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -25,7 +26,7 @@ public class MusicController {
     MusicService musicService;
 
     @GetMapping("music")
-    public ResponseEntity<List<Music>> getMusicList(
+    public ResponseEntity<Page<Music>> getMusicList(
 //          查詢條件 Filtering
             @RequestParam(required = false) MusicCategory category,
             @RequestParam(required = false) String search,
@@ -46,11 +47,17 @@ public class MusicController {
         musicQueryParams.setLimit(limit);
         musicQueryParams.setOffset(offset);
 
-
-
         List<Music> musicList = musicService.getMusicList(musicQueryParams);
 
-        return  ResponseEntity.status(HttpStatus.OK).body(musicList);
+        Integer total = musicService.countMusic(musicQueryParams);
+
+        Page<Music> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResults(musicList);
+
+        return  ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
 //  搜尋

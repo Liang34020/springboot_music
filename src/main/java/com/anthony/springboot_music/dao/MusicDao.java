@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface MusicDao {
 
+    Integer countMusic(MusicQueryParams musicQueryParams);
+
     List<Music> getMusicList(MusicQueryParams musicQueryParams);
 
     Music getMusicById(Integer musicId);

@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface MusicService {
 
+    Integer countMusic(MusicQueryParams musicQueryParams);
+
     List<Music> getMusicList(MusicQueryParams musicQueryParams);
 
     Music getMusicById(Integer musicId);

@@ -18,6 +18,11 @@ public class MusicServiceImpl implements MusicService {
     private MusicDao musicDao;
 
     @Override
+    public Integer countMusic(MusicQueryParams musicQueryParams) {
+        return musicDao.countMusic(musicQueryParams);
+    }
+
+    @Override
     public List<Music> getMusicList(MusicQueryParams musicQueryParams) {
         return musicDao.getMusicList(musicQueryParams);
     }
