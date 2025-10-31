@@ -24,21 +24,11 @@ public class MusicDaoImpl implements MusicDao {
 
     @Override
     public Integer countMusic(MusicQueryParams musicQueryParams) {
-        String sql = "select count(*) from music WHERE 1=1";
+        String sql = "SELECT count(*) FROM music WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
-        MusicCategory category = musicQueryParams.getCategory();
-        String search = musicQueryParams.getSearch();
 
-        if (category != null) {
-            sql += " AND category = :category";
-            map.put("category", category.name());
-        }
-
-        if (search != null) {
-            sql += " AND music_name LIKE :search";
-            map .put("search", "%" + search + "%");
-        }
+        sql += addFilteringSql(sql,map,musicQueryParams);
 
         return namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
     }
@@ -49,19 +39,9 @@ public class MusicDaoImpl implements MusicDao {
         String sql = "SELECT * FROM music WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
-        MusicCategory category = musicQueryParams.getCategory();
-        String search = musicQueryParams.getSearch();
 
 //      查詢條件
-        if (category != null) {
-            sql += " AND category = :category";
-            map.put("category", category.name());
-        }
-
-        if (search != null) {
-            sql += " AND music_name LIKE :search";
-            map .put("search", "%" + search + "%");
-        }
+        sql += addFilteringSql(sql,map,musicQueryParams);
 
 //      排序
         sql += " ORDER BY "+ musicQueryParams.getOrderBy() + " " + musicQueryParams.getSort();
@@ -70,7 +50,6 @@ public class MusicDaoImpl implements MusicDao {
         sql += " LIMIT :limit OFFSET :offset";
         map.put("limit", musicQueryParams.getLimit());
         map.put("offset", musicQueryParams.getOffset());
-
 
         return namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
     }
@@ -170,5 +149,21 @@ public class MusicDaoImpl implements MusicDao {
         }
     }
 
+    private String addFilteringSql(String sql , Map<String, Object> map, MusicQueryParams musicQueryParams) {
 
+        MusicCategory category = musicQueryParams.getCategory();
+        String search = musicQueryParams.getSearch();
+
+//      查詢條件
+        if (category != null) {
+            sql += " AND category = :category";
+            map.put("category", category.name());
+        }
+
+        if (search != null) {
+            sql += " AND music_name LIKE :search";
+            map.put("search", "%" + search + "%");
+        }
+        return sql;
+    }
 }
