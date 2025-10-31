@@ -28,7 +28,7 @@ public class MusicDaoImpl implements MusicDao {
 
         Map<String, Object> map = new HashMap<>();
 
-        sql += addFilteringSql(sql,map,musicQueryParams);
+        sql = addFilteringSql(sql,map,musicQueryParams);
 
         return namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
     }
@@ -41,7 +41,7 @@ public class MusicDaoImpl implements MusicDao {
         Map<String, Object> map = new HashMap<>();
 
 //      查詢條件
-        sql += addFilteringSql(sql,map,musicQueryParams);
+        sql = addFilteringSql(sql,map,musicQueryParams);
 
 //      排序
         sql += " ORDER BY "+ musicQueryParams.getOrderBy() + " " + musicQueryParams.getSort();
