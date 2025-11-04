@@ -30,16 +30,16 @@ public class Music {
         return music_name;
     }
 
-    public void setMusicName(String musicName) {
-        this.music_name = musicName;
+    public void setMusicName(String music_name) {
+        this.music_name = music_name;
     }
 
     public MusicCategory getMusicCategory() {
         return category;
     }
 
-    public void setCategory(MusicCategory musicCategory) {
-        this.category = musicCategory;
+    public void setCategory(MusicCategory category) {
+        this.category = category;
     }
 
     public String getSinger() {

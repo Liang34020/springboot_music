@@ -85,7 +85,7 @@ public class MusicDaoImpl implements MusicDao {
         Map<String, Object> map = new HashMap<>();
         map.put("music_name", musicRequest.getMusic_name());
         map.put("singer", musicRequest.getSinger());
-        map.put("category", musicRequest.getCategory());
+        map.put("category", musicRequest.getCategory().name());
         map.put("youtube_url", musicRequest.getYoutube_url());
         map.put("views", musicRequest.getViews());
         map.put("description", musicRequest.getDescription());
@@ -113,7 +113,7 @@ public class MusicDaoImpl implements MusicDao {
         map.put("music_id", musicRequest.getMusic_id());
         map.put("music_name", musicRequest.getMusic_name());
         map.put("singer", musicRequest.getSinger());
-        map.put("category", musicRequest.getCategory());
+        map.put("category", musicRequest.getCategory() != null ? musicRequest.getCategory().name() : null);
         map.put("youtube_url", musicRequest.getYoutube_url());
         map.put("views", musicRequest.getViews());
         map.put("description", musicRequest.getDescription());

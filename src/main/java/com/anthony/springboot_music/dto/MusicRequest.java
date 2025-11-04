@@ -2,39 +2,41 @@ package com.anthony.springboot_music.dto;
 
 import com.anthony.springboot_music.constant.MusicCategory;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.lang.NonNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
 
 //為了與Music Class 區分使用 可能想要加上not null之類的
 public class MusicRequest {
 
-    @NonNull
+    @NotNull
     private Integer music_id;
 
-    @NonNull
+    @NotNull
     private String music_name;
 
-    @NonNull
+    @NotNull
     private String singer;
 
-    @NonNull
-    private String category;
+    @NotNull
+    private MusicCategory category;
 
-    @NonNull
+    @NotNull
     private String youtube_url;
 
-    @NonNull
+    @NotNull
     private Integer views;
 
-    @NonNull
+    @NotNull
     private String description;
 
-    @NonNull
+    @NotNull
     private String duration;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
-    @NonNull
+    @NotNull
     private Date created_date;
 
     public Integer getMusic_id(){
@@ -60,11 +62,11 @@ public class MusicRequest {
         this.singer = singer;
     }
 
-    public String getCategory() {
+    public MusicCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(MusicCategory category) {
         this.category = category;
     }
 

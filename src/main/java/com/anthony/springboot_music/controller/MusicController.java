@@ -86,7 +86,7 @@ public class MusicController {
 //  修改 (Put
     @PutMapping("music/{musicId}")
     public ResponseEntity<Music> updateMusic(@PathVariable Integer musicId,
-                                             @RequestBody MusicRequest musicRequest) {
+                                             @Valid @RequestBody MusicRequest musicRequest) {
 
         Music music = musicService.getMusicById(musicId);
 
@@ -108,9 +108,9 @@ public class MusicController {
         Music music = musicService.getMusicById(musicId);
         if (music != null) {
             musicService.deleteMusicById(musicId);
-            return ResponseEntity.status(HttpStatus.OK).body(music);
-        }else{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
