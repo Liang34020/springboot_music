@@ -2,6 +2,7 @@ package com.anthony.springboot_music.service.impl;
 
 
 import com.anthony.springboot_music.dao.UserDao;
+import com.anthony.springboot_music.dto.UserLoginRequest;
 import com.anthony.springboot_music.dto.UserRegisterRequest;
 import com.anthony.springboot_music.model.User;
 import com.anthony.springboot_music.service.UserService;
@@ -36,5 +37,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+        if(user == null){
+            log.warn("該 email {} 尚未註冊", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (user.getPassword().equals(userLoginRequest.getPassword())) {
+            return user;
+        } else  {
+            log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

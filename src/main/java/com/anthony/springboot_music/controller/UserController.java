@@ -1,5 +1,6 @@
 package com.anthony.springboot_music.controller;
 
+import com.anthony.springboot_music.dto.UserLoginRequest;
 import com.anthony.springboot_music.dto.UserRegisterRequest;
 import com.anthony.springboot_music.model.User;
 import com.anthony.springboot_music.service.UserService;
@@ -26,5 +27,12 @@ public class UserController {
         User user = userService.getUserById(userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @PostMapping("users/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+        User user =  userService.login(userLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }
