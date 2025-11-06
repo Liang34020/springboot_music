@@ -37,7 +37,7 @@ public class MusicControllerTest {
 
     @Test
     public void getMusic_succes() throws Exception {
-        RequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/music/{musicId}",1);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/music/{musicId}",1);
 
         mockMvc.perform(requestBuilder)
                 .andDo(print())

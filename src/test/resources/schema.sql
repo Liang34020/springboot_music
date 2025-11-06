@@ -11,3 +11,12 @@ CREATE TABLE IF NOT EXISTS music
     created_date        DATE            NOT NULL,
     last_modified_date  TIMESTAMP       NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS user1
+(
+    user_id             INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    email               VARCHAR(256)    NOT NULL UNIQUE KEY,
+    password            VARCHAR(256)    NOT NULL,
+    created_date        TIMESTAMP       NOT NULL,
+    last_modified_date  TIMESTAMP       NOT NULL
+);
