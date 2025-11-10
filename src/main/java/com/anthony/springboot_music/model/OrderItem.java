@@ -9,6 +9,9 @@ public class OrderItem {
     Integer music_id;
     LocalTime time;
 
+    String music_name;
+    String music_url;
+
     public Integer getOrder_item_id() {
         return order_item_id;
     }
@@ -39,5 +42,21 @@ public class OrderItem {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public String getMusic_name() {
+        return music_name;
+    }
+
+    public void setMusic_name(String music_name) {
+        this.music_name = music_name;
+    }
+
+    public String getMusic_url() {
+        return music_url;
+    }
+
+    public void setMusic_url(String music_url) {
+        this.music_url = music_url;
     }
 }

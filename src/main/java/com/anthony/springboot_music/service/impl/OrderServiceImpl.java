@@ -6,6 +6,7 @@ import com.anthony.springboot_music.dao.OrderDao;
 import com.anthony.springboot_music.dto.FavoriteItem;
 import com.anthony.springboot_music.dto.CreateOrderRequest;
 import com.anthony.springboot_music.model.Music;
+import com.anthony.springboot_music.model.Order;
 import com.anthony.springboot_music.model.OrderItem;
 import com.anthony.springboot_music.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,16 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private MusicDao musicDao;
 
+    @Override
+    public Order getOrderById(Integer orderId) {
+        Order order = orderDao.getOrderById(orderId);
+
+        List<OrderItem> orderItemList = orderDao.getOrderItemById(orderId);
+
+        order.setOrderItemList(orderItemList);
+
+        return order;
+    }
 
     @Transactional //只要有作多個DAO層的呼叫 都要做這個處理 確保兩個呼叫都是成功才寫入
     @Override

@@ -1,6 +1,7 @@
 package com.anthony.springboot_music.controller;
 
 import com.anthony.springboot_music.dto.CreateOrderRequest;
+import com.anthony.springboot_music.model.Order;
 import com.anthony.springboot_music.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,8 @@ public class OrderController {
 
         Integer orderId = orderService.createOrder(userId, createOrderRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderId);
+        Order order = orderService.getOrderById(orderId);
 
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
-
-
-
-
-
-
-
 }

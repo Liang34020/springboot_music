@@ -4,6 +4,7 @@ import javax.xml.crypto.Data;
 import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -12,6 +13,8 @@ public class Order {
     LocalTime total_time;
     Date created_date;
     Date last_modified_date;
+
+    List<OrderItem> orderItemList;
 
     public Integer getOrder_id() {
         return order_id;
@@ -51,5 +54,13 @@ public class Order {
 
     public void setLast_modified_date(Date last_modified_date) {
         this.last_modified_date = last_modified_date;
+    }
+
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 }
