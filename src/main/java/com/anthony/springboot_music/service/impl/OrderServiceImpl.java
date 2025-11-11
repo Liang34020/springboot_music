@@ -6,6 +6,7 @@ import com.anthony.springboot_music.dao.OrderDao;
 import com.anthony.springboot_music.dao.UserDao;
 import com.anthony.springboot_music.dto.FavoriteItem;
 import com.anthony.springboot_music.dto.CreateOrderRequest;
+import com.anthony.springboot_music.dto.OrderQueryQarams;
 import com.anthony.springboot_music.model.Music;
 import com.anthony.springboot_music.model.Order;
 import com.anthony.springboot_music.model.OrderItem;
@@ -38,6 +39,24 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private UserDao userDao;
+
+
+    @Override
+    public Integer countOrders(OrderQueryQarams orderQueryQarams) {
+        return orderDao.countOrders(orderQueryQarams);
+    }
+
+    @Override
+    public List<Order> getOrders(OrderQueryQarams orderQueryQarams) {
+        List<Order> orders = orderDao.getOrders(orderQueryQarams);
+
+        for (Order order : orders) {
+            List<OrderItem> orderItems = orderDao.getOrderItemById(order.getOrder_id());
+
+            order.setOrderItemList(orderItems);
+        }
+        return orders;
+    }
 
     @Override
     public Order getOrderById(Integer orderId) {

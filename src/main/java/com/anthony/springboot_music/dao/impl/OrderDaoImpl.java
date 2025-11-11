@@ -2,7 +2,7 @@ package com.anthony.springboot_music.dao.impl;
 
 
 import com.anthony.springboot_music.dao.OrderDao;
-import com.anthony.springboot_music.dto.CreateOrderRequest;
+import com.anthony.springboot_music.dto.OrderQueryQarams;
 import com.anthony.springboot_music.model.Order;
 import com.anthony.springboot_music.model.OrderItem;
 import com.anthony.springboot_music.rowmapper.OrderItemRowMapper;
@@ -14,8 +14,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,6 +40,42 @@ public class OrderDaoImpl implements OrderDao {
         }else {
             return null;
         }
+    }
+
+    @Override
+    public Integer countOrders(OrderQueryQarams orderQueryQarams){
+        String sql = "SELECT COUNT(*) FROM `order` WHERE 1=1";
+
+        Map<String, Object> map = new HashMap<>();
+
+        sql = addFilteringSql(sql, map, orderQueryQarams);
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+    }
+
+    @Override
+    public List<Order> getOrders(OrderQueryQarams orderQueryQarams) {
+        String sql = "SELECT * FROM `order` WHERE 1=1";
+
+        Map<String, Object> map = new HashMap<>();
+
+//      查詢
+        sql = addFilteringSql(sql, map, orderQueryQarams);
+
+//      排序
+        sql = sql + " ORDER BY created_date DESC";
+
+//      分頁
+        sql = sql + " LIMIT :limit OFFSET :offset";
+
+        map.put("limit", orderQueryQarams.getLimti());
+        map.put("offset", orderQueryQarams.getOffset());
+
+        List<Order> orderList = namedParameterJdbcTemplate.query(sql, map, new OrderRowMapper());
+
+        return orderList;
     }
 
 
@@ -98,5 +132,13 @@ public class OrderDaoImpl implements OrderDao {
         }
 
         namedParameterJdbcTemplate.batchUpdate(sql, mapSqlParameterSource);
+    }
+
+    private String addFilteringSql(String sql, Map<String, Object> map, OrderQueryQarams orderQueryQarams){
+        if (orderQueryQarams.getUserId() != null) {
+            sql = sql + " AND user_id = :userId";
+            map.put("userId", orderQueryQarams.getUserId());
+        }
+        return sql;
     }
 }
