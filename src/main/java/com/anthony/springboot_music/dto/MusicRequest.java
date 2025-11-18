@@ -11,7 +11,7 @@ import java.util.Date;
 //為了與Music Class 區分使用 可能想要加上not null之類的
 public class MusicRequest {
 
-    @NotNull
+//    @NotNull
     private Integer music_id;
 
     @NotNull

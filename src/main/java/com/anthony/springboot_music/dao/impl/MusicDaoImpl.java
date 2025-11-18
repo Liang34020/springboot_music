@@ -56,17 +56,9 @@ public class MusicDaoImpl implements MusicDao {
 
     @Override
     public Music getMusicById(Integer musicId) {
-        String sql = "SELECT music_id,music_name, singer, category, youtube_url, views, description, duration, created_date, last_modified_date FROM music WHERE music_id = :musicId";
-//
-//        Map<String,Object> map = new HashMap<>();
-//        map.put("musicId", musicId);
-//        List<Music> musicList = namedParameterJdbcTemplate.query(sql, map, new MusicRowMapper());
-//
-//        if (!musicList.isEmpty()) {
-//            return musicList.get(0);
-//        } else {
-//            return null;
-//        }
+        String sql = "SELECT music_id,music_name, singer, category, youtube_url, views, description, duration,"+
+                     " created_date, last_modified_date FROM music WHERE music_id = :musicId";
+
         Map<String, Object> map = Collections.singletonMap("musicId", musicId);
 
         try {

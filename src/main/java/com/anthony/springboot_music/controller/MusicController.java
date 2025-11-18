@@ -60,7 +60,7 @@ public class MusicController {
         return  ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-//  搜尋
+//  透過ID去搜尋
     @GetMapping("music/{musicId}")
     public ResponseEntity<Music> getMusicList(@PathVariable Integer musicId) {
         Music music = musicService.getMusicById(musicId);
