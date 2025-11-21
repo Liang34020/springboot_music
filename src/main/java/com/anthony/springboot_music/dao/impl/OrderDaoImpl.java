@@ -81,10 +81,10 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<OrderItem> getOrderItemById(Integer orderId) {
-        String sql = "SELECT oi.order_item_id, oi.order_id, oi.music_id, oi.time " +
+        String sql = "SELECT oi.order_item_id, oi.order_id, oi.music_id, oi.`time` ,p.music_name, p.youtube_url " +
                 "FROM order_item as oi LEFT JOIN music as p ON oi.music_id = p.music_id " +
                 "WHERE oi.order_id = :order_id";
-
+        System.out.println("SQL = " + sql);
         Map<String, Object> map = new HashMap<>();
         map.put("order_id", orderId);
 

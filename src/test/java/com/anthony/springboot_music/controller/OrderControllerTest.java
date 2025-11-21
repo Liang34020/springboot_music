@@ -36,29 +36,33 @@ class OrderControllerTest {
     @Test
     public void createOrder_success() throws Exception {
         CreateOrderRequest createOrderRequest = new CreateOrderRequest();
-        List<FavoriteItem> FavoriteItemList = new ArrayList<>();
+        List<FavoriteItem> favoriteItemList = new ArrayList<>();
 
-        FavoriteItem favoriteItem = new FavoriteItem();
-        favoriteItem.setMusicId(36);
-        FavoriteItemList.add(favoriteItem);
+        FavoriteItem favoriteItem1 = new FavoriteItem();
+        favoriteItem1.setMusicId(1);
+        favoriteItemList.add(favoriteItem1);
 
-        createOrderRequest.setFavoriteItemList(FavoriteItemList);
+        FavoriteItem favoriteItem2 = new FavoriteItem();
+        favoriteItem2.setMusicId(2);
+        favoriteItemList.add(favoriteItem2);
+
+        createOrderRequest.setFavoriteItemList(favoriteItemList);
 
         String json = objectMapper.writeValueAsString(createOrderRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/users/{userId}/orders",36)
+                .post("/users/{userId}/orders", 36)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().is(201))
-                .andExpect(jsonPath("$.orderId", notNullValue()))
-                .andExpect(jsonPath("$.userId", equalTo(750)))
-                .andExpect(jsonPath("$.totalAmount", equalTo(750)))
+                .andExpect(jsonPath("$.order_id", notNullValue()))
+                .andExpect(jsonPath("$.user_id", equalTo(36)))
+                .andExpect(jsonPath("$.total_time", equalTo("00:08:04")))
                 .andExpect(jsonPath("$.orderItemList", hasSize(2)))
-                .andExpect(jsonPath("$.createdDate", notNullValue()))
-                .andExpect(jsonPath("$.lastModifiedDate", notNullValue()));
+                .andExpect(jsonPath("$.created_date", notNullValue()))
+                .andExpect(jsonPath("$.last_modified_date", notNullValue()));
     }
 
     @Transactional
@@ -86,7 +90,7 @@ class OrderControllerTest {
         List<FavoriteItem> FavoriteItemList = new ArrayList<>();
 
         FavoriteItem favoriteItem = new FavoriteItem();
-        favoriteItem.setMusicId(36);
+        favoriteItem.setMusicId(1);
         FavoriteItemList.add(favoriteItem);
 
         createOrderRequest.setFavoriteItemList(FavoriteItemList);
@@ -106,13 +110,14 @@ class OrderControllerTest {
     @Test
     public void createOrder_musicNotExist() throws Exception {
         CreateOrderRequest createOrderRequest = new CreateOrderRequest();
-        List<FavoriteItem> FavoriteItemList = new ArrayList<>();
+        List<FavoriteItem> favoriteItemList = new ArrayList<>();
 
-        FavoriteItem favoriteItem = new FavoriteItem();
-        favoriteItem.setMusicId(36);
-        FavoriteItemList.add(favoriteItem);
+        FavoriteItem favoriteItem1 = new FavoriteItem();
+        favoriteItem1.setMusicId(100);
+        favoriteItemList.add(favoriteItem1);
 
-        createOrderRequest.setFavoriteItemList(FavoriteItemList);
+        createOrderRequest.setFavoriteItemList(favoriteItemList);
+
         String json = objectMapper.writeValueAsString(createOrderRequest);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -134,19 +139,19 @@ class OrderControllerTest {
                 .andExpect(jsonPath("$.limit", notNullValue()))
                 .andExpect(jsonPath("$.offset", notNullValue()))
                 .andExpect(jsonPath("$.total", notNullValue()))
-                .andExpect(jsonPath("$.results", hasSize(2)))
-                .andExpect(jsonPath("$.results[0].orderId", notNullValue()))
-                .andExpect(jsonPath("$.results[0].userId", equalTo(1)))
-                .andExpect(jsonPath("$.results[0].totalAmount", equalTo(100000)))
-                .andExpect(jsonPath("$.results[0].orderItemList", hasSize(1)))
-                .andExpect(jsonPath("$.results[0].createdDate", notNullValue()))
-                .andExpect(jsonPath("$.results[0].lastModifiedDate", notNullValue()))
-                .andExpect(jsonPath("$.results[1].orderId", notNullValue()))
-                .andExpect(jsonPath("$.results[1].userId", equalTo(1)))
-                .andExpect(jsonPath("$.results[1].totalAmount", equalTo(500690)))
-                .andExpect(jsonPath("$.results[1].orderItemList", hasSize(3)))
-                .andExpect(jsonPath("$.results[1].createdDate", notNullValue()))
-                .andExpect(jsonPath("$.results[1].lastModifiedDate", notNullValue()));
+                .andExpect(jsonPath("$.results", hasSize(1)))
+                .andExpect(jsonPath("$.results[0].order_id", notNullValue()))
+                .andExpect(jsonPath("$.results[0].user_id", equalTo(36)))
+                .andExpect(jsonPath("$.results[0].total_time", equalTo("00:08:04")))
+                .andExpect(jsonPath("$.results[0].orderItemList", hasSize(2)))
+                .andExpect(jsonPath("$.results[0].created_date", notNullValue()))
+                .andExpect(jsonPath("$.results[0].last_modified_date", notNullValue()));
+//                .andExpect(jsonPath("$.results[1].orderId", notNullValue()))
+//                .andExpect(jsonPath("$.results[1].userId", equalTo(1)))
+//                .andExpect(jsonPath("$.results[1].totalAmount", equalTo(500690)))
+//                .andExpect(jsonPath("$.results[1].orderItemList", hasSize(3)))
+//                .andExpect(jsonPath("$.results[1].createdDate", notNullValue()))
+//                .andExpect(jsonPath("$.results[1].lastModifiedDate", notNullValue()));
     }
 
 //     修改到這裡

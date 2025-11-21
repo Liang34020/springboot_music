@@ -10,7 +10,7 @@ public class OrderItem {
     LocalTime time;
 
     String music_name;
-    String music_url;
+    String youtube_url;
 
     public Integer getOrder_item_id() {
         return order_item_id;
@@ -52,11 +52,11 @@ public class OrderItem {
         this.music_name = music_name;
     }
 
-    public String getMusic_url() {
-        return music_url;
+    public String getYoutube_url() {
+        return youtube_url;
     }
 
-    public void setMusic_url(String music_url) {
-        this.music_url = music_url;
+    public void setYoutube_url(String youtube_url) {
+        this.youtube_url = youtube_url;
     }
 }

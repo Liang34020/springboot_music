@@ -3,6 +3,7 @@ package com.anthony.springboot_music.dto;
 import jakarta.validation.constraints.NotNull;
 
 public class FavoriteItem {
+
     @NotNull
     private Integer musicId;
 

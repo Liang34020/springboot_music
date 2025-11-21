@@ -90,6 +90,10 @@ public class OrderServiceImpl implements OrderService {
         for (FavoriteItem favoriteItem : createOrderRequest.getFavoriteItemList()){
             Music music = musicDao.getMusicById(favoriteItem.getMusicId());
 
+            if (music == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Music not exist");
+            }
+
 //          取得music時間 轉換為HH:mm:ss長度
             String duration = music.getDuration();
             if (duration.length() == 5){
@@ -107,13 +111,11 @@ public class OrderServiceImpl implements OrderService {
             orderItemList.add(orderItem);
 
         }
-
         LocalTime time = LocalTime.ofSecondOfDay(total);
 
-        int orderId = orderDao.createOrder(userId, time);
-
-
-        orderDao.createOrderItem(userId, orderItemList);
+        Integer orderId = orderDao.createOrder(userId, time);
+        System.out.println("orderId=" + orderId);
+        orderDao.createOrderItem(orderId, orderItemList);
 
         return orderId;
     }

@@ -17,7 +17,7 @@ public class OrderItemRowMapper implements RowMapper<OrderItem> {
         orderItem.setTime(resultSet.getTime("time").toLocalTime());
 
         orderItem.setMusic_name(resultSet.getString("music_name"));
-        orderItem.setMusic_url(resultSet.getString("music_url"));
+        orderItem.setYoutube_url(resultSet.getString("youtube_url"));
 
         return orderItem;
 
